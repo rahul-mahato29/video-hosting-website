@@ -1,0 +1,15 @@
+{
+  "name": "video-hosting-website",
+  "version": "1.0.0",
+  "description": "Building backend of a video hosting website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Javascript",
+    "backend"
+  ],
+  "author": "Rahul Mahato",
+  "license": "ISC"
+}
