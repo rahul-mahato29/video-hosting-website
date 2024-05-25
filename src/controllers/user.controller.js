@@ -2,6 +2,7 @@ import { User } from '../models/user.model.js';
 import { apiError } from '../utils/apiError.js';
 import { apiResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js'
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
 const registerUser = asyncHandler(async (req, res) => {
     // get user details from frontend
@@ -18,17 +19,22 @@ const registerUser = asyncHandler(async (req, res) => {
     if ([username, email, fullName, password].some((field) => field?.trim() === ""))
         throw new apiError(400, "All fields are required");
 
-    const userExist = User.findOne({
+    const userExist = await User.findOne({
         $or: [{ username }, { email }]
     })
     if (userExist) throw new apiError(409, "User already exist");
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
     if(!avatarLocalPath) throw new apiError(400, "Avatar is required");  //avatar is mandatory
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files?.coverImage[0]?.path;
+    }
 
     const avatar = await uploadOnCloudinary(avatarLocalPath);
     const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+    console.log("CoverImage : ", coverImage)
     if(!avatar) throw new apiError(400, "Avatar is required");
 
     const user = await User.create({
@@ -40,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
         coverImage: coverImage?.url || ""
     })
     
+    console.log("Test : ", user);
     const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     )
