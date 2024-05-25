@@ -1,6 +1,6 @@
 ## Video Hosting Webstie
 
-#### Data Model - [Model Link](https://app.eraser.io/workspace/YtPqZ1VogxGy1jzIDkzj)
+#### Data Model - [Model Link](https://app.eraser.io/workspace/5Vie2TrzlNAxI5f02kcL?origin=share)
 ![image](https://github.com/rahul-mahato29/video-hosting-website/assets/88178967/ec2d4f28-b540-4fca-ac62-9815a58ea3ad)
 
 
