@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-    this.password = bcrypt.hash(this.password, 8);   //this should be executed in 2 cases only, when password will be created for the first time and whenever password will be modified.
+    this.password = await bcrypt.hash(this.password, 8);   //this should be executed in 2 cases only, when password will be created for the first time and whenever password will be modified.
     next();
 })
 
