@@ -50,7 +50,7 @@ const uploadVideo = asyncHandler(async (req, res) => {
         url: thumbNail.url
     },
     owner: req.user?._id,
-    isPublished: false,
+    isPublished: true,
   });
 
   const videoUploaded = await Video.findById(video._id);
@@ -62,3 +62,8 @@ const uploadVideo = asyncHandler(async (req, res) => {
     .status(200)
     .json(new apiResponse(200, "Video Uploaded Successfully"));
 });
+
+
+export {
+    uploadVideo,
+}
