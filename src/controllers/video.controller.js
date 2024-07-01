@@ -8,7 +8,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 //2. get all videos
 //3. access specific video by id
 //4. update video details (title, description, thumbnail)
-//5. delete video
+//5. delete video 
 
 const uploadVideo = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
@@ -18,7 +18,9 @@ const uploadVideo = asyncHandler(async (req, res) => {
   }
 
   const videoFileLocalPath = req.files?.videoFile[0].path;
-  const thumbNailLocalPath = req.files?.videoFile[0].path;
+  const thumbNailLocalPath = req.files?.thumbNail[0].path;
+  console.log("Test: ", thumbNailLocalPath);
+  console.log("Test2: ", videoFileLocalPath);
 
   if (!videoFileLocalPath) {
     throw new apiError(400, "videoFileLocalPath is required");
@@ -50,7 +52,7 @@ const uploadVideo = asyncHandler(async (req, res) => {
         url: thumbNail.url
     },
     owner: req.user?._id,
-    isPublished: true,
+    isPublished: false,
   });
 
   const videoUploaded = await Video.findById(video._id);
