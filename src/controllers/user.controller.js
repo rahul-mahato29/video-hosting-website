@@ -279,6 +279,7 @@ const updateCoverImage = asyncHandler(async (req, res) => {
         )
 })
 
+//connected with subscription
 const getUserChannelProfile = asyncHandler(async (req, res) => {
     const { username } = req.params;
 
@@ -351,6 +352,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         ) 
 })
 
+//connected with video
 const getWatchHistory = asyncHandler(async (req, res) => {
     const user = await User.aggregate([
         {
