@@ -6,7 +6,7 @@ const videoSchema = new mongoose.Schema({
         type: String,  //cloudinary
         required: true
     },
-    thumbnail: {
+    thumbNail: {
         type: String,   //cloudinary
         required: true
     },
