@@ -90,4 +90,29 @@ const updateVideo = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, updatedVideo, "Video Updated Successfully"));
 });
 
-export { uploadVideo, updateVideo };
+//delete video
+const deleteVideo = asyncHandler(async (req, res) => {
+  const { videoId } = req.params;
+
+  if (!isValidObjectId(videoId)) throw new apiError(400, "Invalid VideoId");
+
+  const video = await Video.findById(videoId);
+  if (!video) throw new apiError(404, "Video not found");
+
+  if (video?.owner.toString() !== req.user?._id.toString()) {
+    throw new apiError(
+      400,
+      "You can't delete this video, as you are not the owner"
+    );
+  }
+
+  const videoDeleted = await Video.findByIdAndDelete(video?._id);
+  if (!videoDeleted)
+    throw new apiError(400, "failed to delete the video, please try again");
+
+  return res.status(200).json(
+    new apiResponse(200, "Video deleted successfully")
+  );
+});
+
+export { uploadVideo, updateVideo, deleteVideo };
